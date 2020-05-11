@@ -27,8 +27,8 @@ RUN TAGS=$(git ls-remote https://github.com/docker/compose | grep refs/tags | gr
   echo "Symlinking most recent stable Docker Compose version: ${LATEST}" && \
   ln -s "${LATEST}" /usr/local/bin/docker-compose
 
-# Configure docker group and jenkins user
-RUN groupadd docker && usermod -aG docker jenkins && usermod -aG sudo jenkins && id jenkins
+# Configure jenkins user
+RUN usermod -aG docker jenkins && usermod -aG sudo jenkins && id jenkins
 RUN echo "jenkins ALL=(ALL)	NOPASSWD: ALL" >> /etc/sudoers
 
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
